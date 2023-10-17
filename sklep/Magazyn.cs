@@ -8,9 +8,9 @@ namespace sklep
 {
     internal class Magazyn
     {
-        // Właściwości (wszystkie defaltowo private) z odwołaniami do innych klas
-        Produkt[] produkty;
-        Adres adres;
+        // Właściwości (wszystkie defaltowo private czyli dostępne tylko dla metod klasy) z odwołaniami do innych obiektów klas
+        Produkt[] produkty { get; set; }
+        public Adres adres { get; set; }
 
         // Konstruktor
         Magazyn(Produkt[] produkty, Adres adres)
@@ -19,6 +19,6 @@ namespace sklep
             this.adres = adres;
         }
 
-        // Usuwanie poprzez ustawianie w kodzie zmiennej w której trzymany jest obiekt na null
+        // Usuwanie poprzez usuwanie z listy
     }
 }
