@@ -21,7 +21,7 @@ int Menu()
     return wybor;
 }
 
-// Funkcja generująca liste i zwracająca wybrany element
+// Funkcja generująca liste i zwracająca wybrany element (spoiler: nie udało sie zrobić ale może kiedyś sie uda wiec zostawie)
 /*int GenMenu<T>(string tytol, string zapytanie, List<T> lista, Object objekt)
 {
     string naglowek = "------" + tytol.Replace(' ', '-') + "------";
@@ -64,6 +64,7 @@ void Produkty()
     Console.WriteLine("5.Wróc do menu");
     Console.WriteLine("---------------------------------");
     Console.Write("Twój wybór: ");
+    // zmienna jest ustawiana już tutaj ponieważ gdyby ustawić ją  w try catch to była by ona dostępna tylko w bloku try catch
     int wybor = -1;
     try { wybor = Convert.ToInt32(Console.ReadLine()); } catch { }
 
@@ -74,6 +75,7 @@ void Produkty()
             Console.Clear();
             Console.WriteLine("------Produkty------");
             int i = 0;
+            // pętla iterująca po każdym elemencie (w tym przypadku) tablicy produkty
             foreach (Produkt p in produkty)
             {
                 Console.WriteLine(i + ". " + p.NazwaProduktu);
@@ -81,6 +83,7 @@ void Produkty()
             }
             Console.WriteLine("--------------------");
             Console.Write("Kliknij dowolny przycisk aby wrócić..");
+            // Czekanie na enter
             Console.ReadLine();
             break;
         
@@ -98,6 +101,7 @@ void Produkty()
             string kod = Console.ReadLine();
             Console.Write("Cena: ");
             float cena = -1;
+            // sprawdzanie czy cene da sie przekonwertować z zwracanego przez RealLina stringa na double a co za tym idzie na 
             try { cena = (float)Convert.ToDouble(Console.ReadLine()); } catch
             {
                 Console.Clear();
@@ -107,6 +111,7 @@ void Produkty()
             }
             Console.Write("Opis: ");
             string opis = Console.ReadLine();
+            // Dodawanie do listy produktów nowego obiektu klasy Produkt
             produkty.Add(new Produkt(producent, produkt, kategoria, kod, cena, opis));
             Console.Write("Dodano..");
             Console.ReadLine();
@@ -125,6 +130,7 @@ void Produkty()
             Console.WriteLine("-------------------------------");
             Console.Write("Produkt do zedytowania: ");
             int edit = -1;
+            // sprawdzanie czy opcja jest cyfrą
             try { edit = Convert.ToInt32(Console.ReadLine()); }
             catch
             {
@@ -133,6 +139,7 @@ void Produkty()
                 Console.ReadLine();
                 break;
             }
+            // sprawdzanei czy cyfra mieści sie w zakresie listy produktów (Count - 1 bo np elementów jest 7 ale iteruje sie od 0 wiec największym indexem będzie 6)
             if (edit < 0 || edit > produkty.Count-1)
             {
                 Console.Clear();
@@ -140,6 +147,7 @@ void Produkty()
                 Console.ReadLine();
                 break;
             }
+            // Wywoływanie metody Edit() z indexu tablicy pod którym jest obiekt
             produkty[edit].Edit();
             Console.Write("Zedytowano..");
             Console.ReadLine();
@@ -173,6 +181,7 @@ void Produkty()
                 Console.ReadLine();
                 break;
             }
+            // Usuwanie komórki w której zapisany jest obiekt
             produkty.RemoveAt(delete);
             Console.Write("Usunięto..");
             Console.ReadLine();
@@ -455,5 +464,6 @@ for ( ; ; )
         default: break;
     }
 
+    // Koniec pętli wszystko zacznie sie od nowa więc czyszczenie konsoli
     Console.Clear();
 }

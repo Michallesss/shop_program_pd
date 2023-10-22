@@ -15,6 +15,7 @@ namespace sklep
         string miejscowosc;
         string numerPosesji;
         string numerLokalu;
+        // zamiast tworzyć publiczną włąściwość dla każdego (ulica, numerPosesji, ...) stworzyłem jedną zwracającą od razu sformatowany adres
         public string Adress
         {
             get
@@ -33,7 +34,5 @@ namespace sklep
             this.numerPosesji= numerPosesji;
             this.numerLokalu= numerLokalu;
         }
-
-        // Usuwanie poprzez usuwanie z listy
     }
 }

@@ -14,7 +14,9 @@ namespace sklep
         // Takie utworzenie dodatkowej właściwości NazwaProduktu pozwala na wyświetlanie nazwy w całym kodzie bez możliwości edytowania tej właściwości
         public string NazwaProduktu
         {
+            // Funkcja wywoływana podczas próby odczytania wartości obiekt.NazwaProduktu
             get { return nazwaProduktu; }
+            // Funkcja wywoływana podczas próby ustawienia wartości obiekt.NazwaProduktu
             set { }
         }
         string kategoria;
@@ -22,12 +24,13 @@ namespace sklep
         float cena;
         string opis;
 
-        // Metoda zajmuje sie pobieraniem danych i edytowaniem ich
+        // Metoda (void czyli nie zwracająca nic) zajmuje sie pobieraniem danych i edytowaniem ich
         public void Edit()
         {
             Console.WriteLine("------Edycja-produktu------");
             Console.Write("Nazwa producenta (" + nazwaProducenta + "): ");
             string producent = Console.ReadLine();
+            // Jeśli nic nie zostało wpisane to wartość pozostaje niezmieniona
             if (producent != "")
                 nazwaProducenta = producent;
 
@@ -71,6 +74,7 @@ namespace sklep
         // Konstruktor z defaultowymi wartościami
         public Produkt(string nazwaProducenta = "", string nazwaProduktu = "", string kategoria = "", string kodProduktu = "", float cena = 0, string opis = "")
         {
+            // this odwołuje sie do obiektu w którym sie znajduje
             this.nazwaProducenta = nazwaProducenta;
             this.nazwaProduktu = nazwaProduktu;
             this.kategoria = kategoria;
