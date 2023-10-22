@@ -25,7 +25,7 @@ namespace sklep
         }
 
         // Konstruktor z defaultowymi wartościami
-        Adres(string ulica = "", string kodPocztowy = "", string miejscowosc = "", string numerPosesji = "", string numerLokalu = "")
+        public Adres(string ulica = "", string kodPocztowy = "", string miejscowosc = "", string numerPosesji = "", string numerLokalu = "")
         {
             this.ulica = ulica;
             this.kodPocztowy= kodPocztowy;

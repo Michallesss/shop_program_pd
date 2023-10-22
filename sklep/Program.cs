@@ -375,9 +375,56 @@ void Adresy()
             Console.ReadLine();
             break;
         
-        case 2: break;
+        case 2:
+            Console.Clear();
+            Console.WriteLine("------Dodawanie-adresu------");
+            Console.Write("Ulica: ");
+            string ulica = Console.ReadLine();
+            Console.Write("Kod pocztowy: ");
+            string kodPocztowy = Console.ReadLine();
+            Console.Write("Miejscowosc: ");
+            string miejscowosc = Console.ReadLine();
+            Console.Write("Numer posesji: ");
+            string numerPosesji = Console.ReadLine();
+            Console.Write("Numer lokalu: ");
+            string numerLokalu = Console.ReadLine();
+
+            adresy.Add(new Adres(ulica, kodPocztowy, miejscowosc, numerPosesji, numerLokalu));
+            Console.Write("Dodano..");
+            Console.ReadLine();
+            break;
         
-        case 3: break;
+        case 3:
+            Console.Clear();
+            Console.WriteLine("------Usuwanie-adresu------");
+            int j = 0;
+            foreach (Adres a in adresy)
+            {
+                Console.WriteLine(j + ". " + a.Adress);
+                j++;
+            }
+            Console.WriteLine("---------------------------");
+            Console.Write("Adres do usunięcia: ");
+            int delete = -1;
+            try { delete = Convert.ToInt32(Console.ReadLine()); }
+            catch
+            {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+            if (delete < 0 || delete > adresy.Count - 1)
+            {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+            magazyny.RemoveAt(delete);
+            Console.Write("Usunięto..");
+            Console.ReadLine();
+            break;
         default: break;
     }
 }
