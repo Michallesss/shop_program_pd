@@ -21,6 +21,38 @@ int Menu()
     return wybor;
 }
 
+// Funkcja generująca liste i zwracająca wybrany element
+/*int GenMenu<T>(string tytol, string zapytanie, List<T> lista, Object objekt)
+{
+    string naglowek = "------" + tytol.Replace(' ', '-') + "------";
+    Console.WriteLine(naglowek);
+    int i = 0;
+    foreach (object o in lista)
+    {
+        Console.WriteLine(i + ". " + o.Data);
+        i++;
+    }
+    Console.WriteLine('-' * naglowek.Length);
+    Console.Write(zapytanie);
+    int wybor = -1;
+    try { wybor = Convert.ToInt32(Console.ReadLine()); }
+    catch
+    {
+        Console.Clear();
+        Console.WriteLine("Podano zły index..");
+        Console.ReadLine();
+        return -1;
+    }
+    if (wybor < 0 || wybor > lista.Count - 1)
+    {
+        Console.Clear();
+        Console.WriteLine("Podano zły index..");
+        Console.ReadLine();
+        return -1;
+    }
+    return wybor;
+}*/
+
 // Funkcja wyświetlająca submenu dla produktór i obsługująca nawigacje
 void Produkty()
 {
@@ -38,6 +70,7 @@ void Produkty()
     switch (wybor)
     {
         case 1:
+            // Wyświetlanie wszystkich
             Console.Clear();
             Console.WriteLine("------Produkty------");
             int i = 0;
@@ -52,6 +85,7 @@ void Produkty()
             break;
         
         case 2:
+            // Dodawanie nowego
             Console.Clear();
             Console.WriteLine("------Dodawanie-produktu------");
             Console.Write("Nazwa producenta: ");
@@ -79,6 +113,7 @@ void Produkty()
             break;
         
         case 3: 
+            // Edytowanie 
             Console.Clear();
             Console.WriteLine("------Edytowanie-produktu------");
             int j = 0;
@@ -106,9 +141,12 @@ void Produkty()
                 break;
             }
             produkty[edit].Edit();
+            Console.Write("Zedytowano..");
+            Console.ReadLine();
             break;
         
         case 4:
+            // Usuwanie
             Console.Clear();
             Console.WriteLine("------Usuwanie-produktu------");
             int ij = 0;
@@ -151,9 +189,7 @@ void Magazyny()
     Console.WriteLine("2.Dodaj magazyn");
     Console.WriteLine("3.Edytuj magazyn");
     Console.WriteLine("4.Usuń magazyn");
-    Console.WriteLine("5.Dodaj produkt do magazynu");
-    Console.WriteLine("6.Usuń produkt z magazynu");
-    Console.WriteLine("7.Wróc do menu");
+    Console.WriteLine("5.Wróc do menu");
     Console.WriteLine("---------------------------------");
     Console.Write("Twój wybór: ");
     int wybor = -1;
@@ -162,12 +198,13 @@ void Magazyny()
     switch (wybor)
     {
         case 1:
+            // Wyświetlanie wszystkich
             Console.Clear();
             Console.WriteLine("------Magazyny------");
             int i = 0;
             foreach (Magazyn m in magazyny)
             {
-                Console.WriteLine(i + ". " + m.adres);
+                Console.WriteLine(i + ". " + m.Adres);
                 i++;
             }
             Console.WriteLine("--------------------");
@@ -175,15 +212,136 @@ void Magazyny()
             Console.ReadLine();
             break;
         
-        case 2: break;
+        case 2:
+            // Dodawanie nowego
+            Console.Clear();
+            Console.WriteLine("------Dodaj-magazyn------");
+            Console.WriteLine("-1.Skończ dodawanie");
+            Produkt[] produktyMagazynowe = { };
+            int j = 0;
+            foreach (Produkt p in produkty)
+            {
+                Console.WriteLine(j + ". " + p.NazwaProduktu);
+                j++;
+            }
+            Console.WriteLine("----------------------------------------");
+            for (int inf = 0; ; inf++)
+            {
+                Console.Write("Produkt do dodania: ");
+                int produktMagazynu = -1;
+                try { produktMagazynu = Convert.ToInt32(Console.ReadLine()); } catch
+                {
+                    Console.Clear();
+                    Console.WriteLine("Podano zły index..");
+                    Console.ReadLine();
+                    break;
+                }
+                if (produktMagazynu < -1 || produktMagazynu > produkty.Count - 1)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Podano zły index..");
+                    Console.ReadLine();
+                    break;
+                }
+                if (produktMagazynu == -1)
+                    break;
+                else
+                    produktyMagazynowe[inf] = produkty[produktMagazynu];
+            }
+
+            Console.WriteLine("------Wybierz-adres-magazynu------");
+            int z = 0;
+            foreach (Adres a in adresy)
+            {
+                Console.WriteLine(z + ". " + a.Adress);
+                z++;
+            }
+            Console.WriteLine("----------------------------------");
+            Console.Write("Adres magazynu: ");
+            int adresMagazynu = -1;
+            try { adresMagazynu = Convert.ToInt32(Console.ReadLine()); } catch
+            {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+            if (adresMagazynu < 0 || adresMagazynu > produkty.Count - 1)
+                {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+
+            magazyny.Add(new Magazyn(produktyMagazynowe, adresy[adresMagazynu]));
+            Console.Write("Dodano..");
+            Console.ReadLine();
+            break;
         
-        case 3: break;
+        case 3:
+            // Edytowanie
+            Console.Clear();
+            Console.WriteLine("------Edytuj-magazyn------");
+            int q = 0;
+            foreach (Magazyn m in magazyny)
+            {
+                Console.WriteLine(q + ". " + m.Adres);
+                q++;
+            }
+            Console.WriteLine("--------------------------");
+            Console.Write("Magazyn do zedytowania: ");
+            int edit = -1;
+            try { edit = Convert.ToInt32(Console.ReadLine()); }
+            catch
+            {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+            if (edit < 0 || edit > magazyny.Count - 1)
+            {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+            magazyny[edit].Edit();
+            break;
         
-        case 4: break;
-        
-        case 5: break;
-        
-        case 6: break;
+        case 4:
+            // Usuwanie
+            Console.Clear();
+            Console.WriteLine("------Usuń-magazyn------");
+            int x = 0;
+            foreach (Magazyn m in magazyny)
+            {
+                Console.WriteLine(x + ". " + m.Adres);
+                x++;
+            }
+            Console.WriteLine("----------------------------------------");
+            Console.Write("Magazyn do usunięcia: ");
+            int delete = -1;
+            try { delete = Convert.ToInt32(Console.ReadLine()); }
+            catch
+            {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+            if (delete < 0 || delete > magazyny.Count - 1)
+            {
+                Console.Clear();
+                Console.WriteLine("Podano zły index..");
+                Console.ReadLine();
+                break;
+            }
+            magazyny.RemoveAt(delete);
+            Console.Write("Usunięto..");
+            Console.ReadLine();
+            break;
         default: break;
     }
 }
@@ -209,7 +367,7 @@ void Adresy()
             int i = 0;
             foreach (Adres a in adresy)
             {
-                Console.WriteLine(i + ". " + a.Ulica + " " + a.NumerPosesji + "/" + a.NumerLokalu + ", " + a.Miejscowosc);
+                Console.WriteLine(i + ". " + a.Adress);
                 i++;
             }
             Console.WriteLine("------------------");

@@ -11,33 +11,16 @@ namespace sklep
         // Właściwości
         string ulica;
         // Takie utworzenie dodatkowej właściwości Ulica pozwala dać dostęp tylko do odczytywania właściwości ulica
-        public string Ulica
-        {
-            get { return ulica; }
-            set { }
-        }
         string kodPocztowy;
-        public string KodPocztowy
-        {
-            get { return kodPocztowy; }
-            set { }
-        }
         string miejscowosc;
-        public string Miejscowosc
-        {
-            get { return miejscowosc; }
-            set { }
-        }
         string numerPosesji;
-        public string NumerPosesji
-        {
-            get { return numerPosesji; }
-            set { }
-        }
         string numerLokalu;
-        public string NumerLokalu
+        public string Adress
         {
-            get { return numerLokalu; }
+            get
+            {
+                return ulica + " " + numerPosesji + "/" + numerLokalu + ", " + miejscowosc;
+            }
             set { }
         }
 

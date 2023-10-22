@@ -10,10 +10,25 @@ namespace sklep
     {
         // Właściwości (wszystkie defaltowo private czyli dostępne tylko dla metod klasy) z odwołaniami do innych obiektów klas
         Produkt[] produkty { get; set; }
-        public Adres adres { get; set; }
+        Adres adres { get; set; }
+        public string Adres
+        {
+            get
+            {
+                return adres.Adress;
+            }
+            set { }
+        }
+
+        // Metoda zajmuje sie pobieraniem danych i edytowaniem ich
+        public void Edit()
+        {
+            Console.WriteLine("------Edytowanie-magazynu------");
+            // ...
+        }
 
         // Konstruktor
-        Magazyn(Produkt[] produkty, Adres adres)
+        public Magazyn(Produkt[] produkty, Adres adres)
         {
             this.produkty = produkty;
             this.adres = adres;
