@@ -307,7 +307,7 @@ void Magazyny()
                 Console.ReadLine();
                 break;
             }
-            magazyny[edit].Edit();
+            magazyny[edit].Edit(produkty, adresy);
             break;
         
         case 4:
