@@ -9,7 +9,7 @@ namespace sklep
     internal class Magazyn: IKlasy
     {
         // Właściwości (wszystkie defaltowo private czyli dostępne tylko dla metod klasy) z odwołaniami do innych obiektów klas
-        Produkt[] produkty { get; set; }
+        List<Produkt> produkty { get; set; }
         Adres adres { get; set; }
         public string Data
         {
@@ -25,7 +25,6 @@ namespace sklep
         {
             Console.WriteLine("------Edytowanie-magazynu------");
             Console.WriteLine("Dodawanie produktów od nowa:");
-            Console.WriteLine("-2.Nie edytuj");
             Console.WriteLine("-1.Skończ dodawanie");
             Produkt[] produktyMagazynowe = { };
             int i = 0;
@@ -61,11 +60,11 @@ namespace sklep
             }
 
             Console.WriteLine("Dodanie adresu (" + adres.Data + "):");
-            int q = -1;
+            int q = 0;
             foreach (Adres a in listaAdresow)
             {
-                Console.WriteLine(i + ". " + a.Data);
-                i++;
+                Console.WriteLine(q + ". " + a.Data);
+                q++;
             }
             Console.WriteLine("-------------------------------");
             Console.Write("Adres do zastąpienia: ");
@@ -77,7 +76,7 @@ namespace sklep
                 Console.WriteLine("Podano zły index..");
                 Console.ReadLine();
             }
-            if (adresMagazynu < -2 || adresMagazynu > listaAdresow.Count)
+            if (adresMagazynu < -1 || adresMagazynu > listaAdresow.Count)
             {
                 Console.Clear();
                 Console.WriteLine("Podano zły index..");
@@ -90,7 +89,7 @@ namespace sklep
         }
 
         // Konstruktor
-        public Magazyn(Produkt[] produkty, Adres adres)
+        public Magazyn(List<Produkt> produkty, Adres adres)
         {
             this.produkty = produkty;
             this.adres = adres;
