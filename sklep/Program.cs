@@ -35,27 +35,37 @@ int GenMenu<T>(string tytol, string zapytanie, List<T> lista)
         i++;
     }
     // Tworzenie podgłówka
-    string subnaglowek = "";
-    foreach (char n in naglowek) subnaglowek += "-";
-    Console.WriteLine(subnaglowek);
-    Console.Write(zapytanie);
-    int wybor = -1;
-    try { wybor = Convert.ToInt32(Console.ReadLine()); }
-    catch
+    string podglowek = "";
+    foreach (char n in naglowek) podglowek += "-";
+    Console.WriteLine(podglowek);
+    if (zapytanie == null)
     {
-        Console.Clear();
-        Console.WriteLine("Podano zły index..");
+        Console.Write("Kliknij dowolny przycisk aby wrócić..");
+        // Czekanie na enter
         Console.ReadLine();
         return -1;
-    }
-    if (wybor < 0 || wybor > lista.Count - 1)
+    } 
+    else
     {
-        Console.Clear();
-        Console.WriteLine("Podano zły index..");
-        Console.ReadLine();
-        return -1;
+        Console.Write(zapytanie);
+        int wybor = -1;
+        try { wybor = Convert.ToInt32(Console.ReadLine()); }
+        catch
+        {
+            Console.Clear();
+            Console.WriteLine("Podano zły index..");
+            Console.ReadLine();
+            return -1;
+        }
+        if (wybor < 0 || wybor > lista.Count - 1)
+        {
+            Console.Clear();
+            Console.WriteLine("Podano zły index..");
+            Console.ReadLine();
+            return -1;
+        }
+        return wybor;
     }
-    return wybor;
 }
 
 // Funkcja wyświetlająca submenu dla produktór i obsługująca nawigacje
@@ -78,18 +88,7 @@ void Produkty()
         case 1:
             // Wyświetlanie wszystkich
             Console.Clear();
-            Console.WriteLine("------Produkty------");
-            int i = 0;
-            // pętla iterująca po każdym elemencie (w tym przypadku) tablicy produkty
-            foreach (Produkt p in produkty)
-            {
-                Console.WriteLine(i + ". " + p.Data);
-                i++;
-            }
-            Console.WriteLine("--------------------");
-            Console.Write("Kliknij dowolny przycisk aby wrócić..");
-            // Czekanie na enter
-            Console.ReadLine();
+            GenMenu("Produkty", null, produkty);
             break;
         
         case 2:
@@ -164,31 +163,23 @@ void Magazyny()
         case 1:
             // Wyświetlanie wszystkich
             Console.Clear();
-            Console.WriteLine("------Magazyny------");
-            int i = 0;
-            foreach (Magazyn m in magazyny)
-            {
-                Console.WriteLine(i + ". " + m.Data);
-                i++;
-            }
-            Console.WriteLine("--------------------");
-            Console.Write("Kliknij dowolny przycisk aby wrócić..");
-            Console.ReadLine();
+            GenMenu("Magazyny", null, magazyny);
             break;
         
         case 2:
             // Dodawanie nowego
             Console.Clear();
-            Console.WriteLine("------Dodaj-magazyn------");
-            Console.WriteLine("-1.Skończ dodawanie");
-            List<Produkt> produktyMagazynowe = new List<Produkt>();
-            int j = 0;
+            Console.WriteLine("------Dodawanie-magazynu------");
+            Console.WriteLine("Dodaj produkty:");
+            Console.WriteLine("-1.Skończ dodawać");
+            List<Produkt> produktyMagazynowe = new List<Produkt>() { };
+            int i = 0;
             foreach (Produkt p in produkty)
             {
-                Console.WriteLine(j + ". " + p.Data);
-                j++;
+                Console.WriteLine(i + ". " + p.Data);
+                i++;
             }
-            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("------------------------------");
             for ( ; ; )
             {
                 Console.Write("Produkt do dodania: ");
@@ -213,30 +204,8 @@ void Magazyny()
                     produktyMagazynowe.Add(produkty[produktMagazynu]);
             }
 
-            Console.WriteLine("------Wybierz-adres-magazynu------");
-            int z = 0;
-            foreach (Adres a in adresy)
-            {
-                Console.WriteLine(z + ". " + a.Data);
-                z++;
-            }
-            Console.WriteLine("----------------------------------");
-            Console.Write("Adres magazynu: ");
-            int adresMagazynu = -1;
-            try { adresMagazynu = Convert.ToInt32(Console.ReadLine()); } catch
-            {
-                Console.Clear();
-                Console.WriteLine("Podano zły index..");
-                Console.ReadLine();
-                break;
-            }
-            if (adresMagazynu < 0 || adresMagazynu > produkty.Count - 1)
-                {
-                Console.Clear();
-                Console.WriteLine("Podano zły index..");
-                Console.ReadLine();
-                break;
-            }
+            int adresMagazynu = GenMenu("Wybierz adres magazynu", "Adres magazynu: ", adresy);
+            if (adresMagazynu == -1) break;
 
             magazyny.Add(new Magazyn(produktyMagazynowe, adresy[adresMagazynu]));
             Console.Write("Dodano..");
@@ -280,16 +249,7 @@ void Adresy()
     {
         case 1:
             Console.Clear();
-            Console.WriteLine("------Adresy------");
-            int i = 0;
-            foreach (Adres a in adresy)
-            {
-                Console.WriteLine(i + ". " + a.Data);
-                i++;
-            }
-            Console.WriteLine("------------------");
-            Console.Write("Kliknij dowolny przycisk aby wrócić..");
-            Console.ReadLine();
+            GenMenu("Adresy", null, adresy);
             break;
         
         case 2:
@@ -313,9 +273,9 @@ void Adresy()
         
         case 3:
             Console.Clear();
-            int delete = GenMenu("Usuwanie adresu", "Adres do usunięcia: ", magazyny);
+            int delete = GenMenu("Usuwanie adresu", "Adres do usunięcia: ", adresy);
             if (delete == -1) break;
-            magazyny.RemoveAt(delete);
+            adresy.RemoveAt(delete);
             Console.Write("Usunięto..");
             Console.ReadLine();
             break;
