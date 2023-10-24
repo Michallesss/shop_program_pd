@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sklep
 {
-    internal class Adres
+    internal class Adres: IKlasy
     {
         // Właściwości
         string ulica;
@@ -16,7 +16,7 @@ namespace sklep
         string numerPosesji;
         string numerLokalu;
         // zamiast tworzyć publiczną włąściwość dla każdego (ulica, numerPosesji, ...) stworzyłem jedną zwracającą od razu sformatowany adres
-        public string Adress
+        public string Data
         {
             get
             {
@@ -29,10 +29,10 @@ namespace sklep
         public Adres(string ulica = "", string kodPocztowy = "", string miejscowosc = "", string numerPosesji = "", string numerLokalu = "")
         {
             this.ulica = ulica;
-            this.kodPocztowy= kodPocztowy;
-            this.miejscowosc= miejscowosc;
-            this.numerPosesji= numerPosesji;
-            this.numerLokalu= numerLokalu;
+            this.kodPocztowy = kodPocztowy;
+            this.miejscowosc = miejscowosc;
+            this.numerPosesji = numerPosesji;
+            this.numerLokalu = numerLokalu;
         }
     }
 }

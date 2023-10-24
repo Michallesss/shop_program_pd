@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace sklep
 {
-    internal class Produkt
+    internal class Produkt: IKlasy
     {
         // Właściwości (wszystkie defaltowo private czyli dostępne tylko w klasie)
         string nazwaProducenta;
         string nazwaProduktu;
         // Takie utworzenie dodatkowej właściwości NazwaProduktu pozwala na wyświetlanie nazwy w całym kodzie bez możliwości edytowania tej właściwości
-        public string NazwaProduktu
+        public string Data
         {
             // Funkcja wywoływana podczas próby odczytania wartości obiekt.NazwaProduktu
             get { return nazwaProduktu; }

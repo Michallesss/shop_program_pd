@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace sklep
 {
-    internal class Magazyn
+    internal class Magazyn: IKlasy
     {
         // Właściwości (wszystkie defaltowo private czyli dostępne tylko dla metod klasy) z odwołaniami do innych obiektów klas
         Produkt[] produkty { get; set; }
         Adres adres { get; set; }
-        public string Adres
+        public string Data
         {
             get
             {
-                return adres.Adress;
+                return adres.Data;
             }
             set { }
         }
@@ -31,7 +31,7 @@ namespace sklep
             int i = 0;
             foreach (Produkt p in listaProduktow)
             {
-                Console.WriteLine(i + ". " + p.NazwaProduktu);
+                Console.WriteLine(i + ". " + p.Data);
                 i++;
             }
             Console.WriteLine("-------------------------------");
@@ -60,11 +60,11 @@ namespace sklep
                     produkty[j] = listaProduktow[produktMagazynu];
             }
 
-            Console.WriteLine("Dodanie adresu (" + adres.Adress + "):");
+            Console.WriteLine("Dodanie adresu (" + adres.Data + "):");
             int q = -1;
             foreach (Adres a in listaAdresow)
             {
-                Console.WriteLine(i + ". " + a.Adress);
+                Console.WriteLine(i + ". " + a.Data);
                 i++;
             }
             Console.WriteLine("-------------------------------");
